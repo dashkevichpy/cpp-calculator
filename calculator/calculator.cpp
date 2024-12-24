@@ -11,70 +11,64 @@ bool ReadNumber(Number& result) {
 }
 
 //Читаем операцию
-bool ReadChar(std::string& ch){
-    std::vector<std::string> symbol = {"*", "+", "-", "/", "**", "q", "=", ":", "c", "s", "l"};
-    if(std::cin >> ch){
-        auto indx = std::find(symbol.begin(), symbol.end(), ch);
+bool ReadChar(std::string& operation, std::vector<std::string>& symbol){
+    if(std::cin >> operation){
+        auto indx = std::find(symbol.begin(), symbol.end(), operation);
         if(indx != symbol.end()){
             return true;
-        }else{
-            std::cerr << "Error: Unknown token " << ch << std::endl;
-            return false;
         }
-
-    }else{
-        std::cerr << "Error: Unknown token " << ch << std::endl;
-        return false;
     }
+    std::cerr << "Error: Unknown token " << operation << std::endl;
+    return false;
 }
 
 //Арифметические функции
-void Add(Number& x, Number y){
-    x += y;
+void Add(Number& accumulator, Number value){
+    accumulator += value;
 }
 
-void Subtract(Number& x, Number y){
-    x -= y;
+void Subtract(Number& accumulator, Number value){
+    accumulator -= value;
 }
 
-void Multiply(Number& x, Number y){
-    x *= y;
+void Multiply(Number& accumulator, Number value){
+    accumulator *= value;
 }
 
-void Divide(Number& x, Number y){
-    x/=y;
+void Divide(Number& accumulator, Number value){
+    accumulator /= value;
 }
 
-void Power(Number& x, Number y){
-    x = std::pow(x, y);
+void Power(Number& accumulator, Number value){
+    accumulator = std::pow(accumulator, value);
 }
 
 
-//Функции калькултора
+//Функции калькулятора
 void QuitCalculator() {
     exit(0);
 }
 
-void ShowResult(Number& x){
-    std::cout << x << std::endl;
+void ShowResult(Number& accumulator){
+    std::cout << accumulator << std::endl;
 }
 
-void SetNumber(Number& x, Number y){
-    x = y;
+void SetNumber(Number& accumulator, Number value){
+    accumulator = value;
 }
 
-void ZeroX(Number& x){
-    x = 0;
+void ZeroAccumulator(Number& accumulator){
+    accumulator = 0;
 }
 
-void SaveNumber(Number& x, Number& s, bool& saveNumber){
-    s = x;
-    saveNumber = true;
+void SaveNumber(Number& accumulator, Number& memory, bool& isMemorySet){
+    memory = accumulator;
+    isMemorySet = true;
 }
 
-void LoadFromMemory(Number& s, Number& x, bool& saveNumber){
-    if(saveNumber){
-        x = s;
+void LoadFromMemory(Number& memory, Number& accumulator, bool& isMemorySet){
+    if(isMemorySet){
+        accumulator = memory;
     }else{
         std::cerr << "Error: Memory is empty" << std::endl;
         exit(0);
@@ -82,50 +76,51 @@ void LoadFromMemory(Number& s, Number& x, bool& saveNumber){
 }
 
 //Выбор операции
-bool SelectOperation(Number& x, Number& y, Number& s, std::string& ch, bool& saveNumber){
-    if (ch == "*" || ch == "+" || ch == "-" || ch == "/" || ch == "**" || ch == ":") {
-        if (!ReadNumber(y)) {
+bool SelectOperation(Number& accumulator, Number& value, Number& memory, std::string& operation, bool& isMemorySet){
+    if (operation == "*" || operation == "+" || operation == "-" || operation == "/" || operation == "**" || operation == ":") {
+        if (!ReadNumber(value)) {
             return false;
         }
     }
-    if(ch == "*"){
-        Multiply(x, y);
-    }else if(ch == "+"){
-        Add(x, y);
-    }else if(ch == "-"){
-        Subtract(x, y);
-    }else if(ch == "/"){
-        Divide(x, y);
-    }else if(ch == "**"){
-        Power(x, y);
-    }else if(ch == "q"){
+    if(operation == "*"){
+        Multiply(accumulator, value);
+    }else if(operation == "+"){
+        Add(accumulator, value);
+    }else if(operation == "-"){
+        Subtract(accumulator, value);
+    }else if(operation == "/"){
+        Divide(accumulator, value);
+    }else if(operation == "**"){
+        Power(accumulator, value);
+    }else if(operation == "q"){
         QuitCalculator();
-    }else if(ch == "="){
-        ShowResult(x);
-    }else if(ch == ":"){
-        SetNumber(x, y);
-    }else if(ch == "c"){
-        ZeroX(x);
-    }else if(ch == "s"){
-        SaveNumber(x, s, saveNumber);
-    }else if(ch == "l"){
-        LoadFromMemory(s, x, saveNumber);
+    }else if(operation == "="){
+        ShowResult(accumulator);
+    }else if(operation == ":"){
+        SetNumber(accumulator, value);
+    }else if(operation == "c"){
+        ZeroAccumulator(accumulator);
+    }else if(operation == "s"){
+        SaveNumber(accumulator, memory, isMemorySet);
+    }else if(operation == "l"){
+        LoadFromMemory(memory, accumulator, isMemorySet);
     }
     return true;
 }
 
 //Основной цикл
 void RunCalculatorCycle(){
-    std::string ch;
-    Number x, y, s;
-    bool work = true, saveNumber = false;
-    if(!ReadNumber(x)){
+    std::vector<std::string> symbol = {"*", "+", "-", "/", "**", "q", "=", ":", "c", "s", "l"};
+    std::string operation = ""; // Присвоено значение по умолчанию
+    Number accumulator, value, memory;
+    bool work = true, isMemorySet = false;
+    if(!ReadNumber(accumulator)){
         return;
     }
     while (work) {
-        if(!ReadChar(ch)){
+        if(!ReadChar(operation, symbol)){
             break;
         }
-        work = SelectOperation(x, y, s, ch, saveNumber);
+        work = SelectOperation(accumulator, value, memory, operation, isMemorySet);
     }
 }

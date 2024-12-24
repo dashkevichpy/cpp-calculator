@@ -1,26 +1,29 @@
+#pragma once
+
 #include <string>
+#include <vector>
 
 using Number = double;
 
 // Функции чтения
 bool ReadNumber(Number& result);
-bool ReadChar(std::string& ch);
+bool ReadChar(std::string& operation, std::vector<std::string>& symbol);
 
 // Арифметические операции
-void Add(Number& x, Number y);
-void Subtract(Number& x, Number y);
-void Multiply(Number& x, Number y);
-void Divide(Number& x, Number y);
-void Power(Number& x, Number y);
+void Add(Number& accumulator, Number value);
+void Subtract(Number& accumulator, Number value);
+void Multiply(Number& accumulator, Number value);
+void Divide(Number& accumulator, Number value);
+void Power(Number& accumulator, Number value);
 
 // Операции калькулятора
 void QuitCalculator();
-void ShowResult(Number& x);
-void SetNumber(Number& x, Number y);
-void ZeroX(Number& x);
-void SaveNumber(Number& y, Number& s, bool& saveNumber);
-void LoadFromMemory(Number& s, Number& y, bool& saveNumber);
+void ShowResult(Number& accumulator);
+void SetNumber(Number& accumulator, Number value);
+void ZeroAccumulator(Number& accumulator);
+void SaveNumber(Number& accumulator, Number& memory, bool& isMemorySet);
+void LoadFromMemory(Number& memory, Number& accumulator, bool& isMemorySet);
 
 // Основной цикл и выбор операций
-bool SelectOperation(Number& x, Number& y, Number& s, std::string& ch, bool& saveNumber);
+bool SelectOperation(Number& accumulator, Number& value, Number& memory, std::string& operation, bool& isMemorySet);
 void RunCalculatorCycle();
