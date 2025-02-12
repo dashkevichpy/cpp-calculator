@@ -1,29 +1,29 @@
-#pragma once
+#ifndef CALCULATOR_H
+#define CALCULATOR_H
 
-#include <string>
-#include <vector>
 
 using Number = double;
 
-// Функции чтения
-bool ReadNumber(Number& result);
-bool ReadChar(std::string& operation, std::vector<std::string>& symbol);
+class Calculator{
 
-// Арифметические операции
-void Add(Number& accumulator, Number value);
-void Subtract(Number& accumulator, Number value);
-void Multiply(Number& accumulator, Number value);
-void Divide(Number& accumulator, Number value);
-void Power(Number& accumulator, Number value);
+public:
+    Calculator() = default;
 
-// Операции калькулятора
-void QuitCalculator();
-void ShowResult(Number& accumulator);
-void SetNumber(Number& accumulator, Number value);
-void ZeroAccumulator(Number& accumulator);
-void SaveNumber(Number& accumulator, Number& memory, bool& isMemorySet);
-void LoadFromMemory(Number& memory, Number& accumulator, bool& isMemorySet);
+    // Устанавливает текущее число
+    void Set(Number number);
 
-// Основной цикл и выбор операций
-bool SelectOperation(Number& accumulator, Number& value, Number& memory, std::string& operation, bool& isMemorySet);
-void RunCalculatorCycle();
+    // Возвращает текущее число
+    Number GetNumber() const;
+
+    // Арифметические операции
+    void Add(Number number);
+    void Sub(Number number);
+    void Div(Number number);
+    void Mul(Number number);
+    void Pow(Number exponent);
+
+private:
+    Number acum_ = 0;
+};
+
+#endif // CALCULATOR_H
