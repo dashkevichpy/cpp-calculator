@@ -72,7 +72,8 @@ void MainWindow::on_btn_revers_clicked(){
 // ==================== Ввод чисел ====================
 
 void MainWindow::on_btn_0_clicked(){
-
+    if(input_number_ == "0")
+        return;
     updateActiveNumber("0");
 
 }
