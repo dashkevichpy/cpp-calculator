@@ -73,62 +73,62 @@ void MainWindow::on_btn_revers_clicked(){
 
 void MainWindow::on_btn_0_clicked(){
 
-    input_number_ += "0";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("0");
+
 }
 
 void MainWindow::on_btn_1_clicked(){
 
-    input_number_ += "1";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("1");
+
 }
 
 void MainWindow::on_btn_2_clicked(){
 
-    input_number_ += "2";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("2");
+
 }
 
 void MainWindow::on_btn_3_clicked(){
 
-    input_number_ += "3";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("3");
+
 }
 
 void MainWindow::on_btn_4_clicked(){
 
-    input_number_ += "4";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("4");
+
 }
 
 void MainWindow::on_btn_5_clicked(){
 
-    input_number_ += "5";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("5");
+
 }
 
 void MainWindow::on_btn_6_clicked(){
 
-    input_number_ += "6";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("6");
+
 }
 
 void MainWindow::on_btn_7_clicked(){
 
-    input_number_ += "7";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("7");
+
 }
 
 void MainWindow::on_btn_8_clicked(){
 
-    input_number_ += "8";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("8");
+
 }
 
 void MainWindow::on_btn_9_clicked(){
 
-    input_number_ += "9";
-    ui_->l_result->setText(input_number_);
+    updateActiveNumber("9");
+
 }
 
 void MainWindow::on_btn_dot_clicked(){
@@ -227,4 +227,7 @@ void MainWindow::updateOperation(Operation op, const QString &symbol){
                                 .arg(operation_symbol_));
 }
 
-
+void MainWindow::updateActiveNumber(QString n){
+    input_number_ += n;
+    ui_->l_result->setText(input_number_);
+}

@@ -72,10 +72,10 @@ private:
     QString input_number_;
 
     // Отображаемое число (результат или текущий ввод)
-    double active_number_ = 0;
+    Number active_number_ = 0;
 
     // Значения памяти калькулятора
-    double memory_cell_ = 0;
+    Number memory_cell_ = 0;
     bool memory_saved_ = false;
 
     // Символ текущей операции
@@ -83,6 +83,8 @@ private:
 
     // Обновляет выбранную операцию и формирует строку формулы
     void updateOperation(Operation operation, const QString &symbol);
+
+    void updateActiveNumber(QString n);
 
 };
 
