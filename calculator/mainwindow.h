@@ -84,7 +84,7 @@ private:
     // Обновляет выбранную операцию и формирует строку формулы
     void updateOperation(Operation operation, const QString &symbol);
 
-    void updateActiveNumber(QString n);
+    void updateActiveNumber(const QString &n);
 
 };
 
