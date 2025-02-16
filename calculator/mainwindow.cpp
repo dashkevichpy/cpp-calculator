@@ -228,7 +228,7 @@ void MainWindow::updateOperation(Operation op, const QString &symbol){
                                 .arg(operation_symbol_));
 }
 
-void MainWindow::updateActiveNumber(QString n){
+void MainWindow::updateActiveNumber(const QString &n){
     input_number_ += n;
     ui_->l_result->setText(input_number_);
 }
